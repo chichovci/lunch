@@ -6,67 +6,97 @@
 <meta name="robots" content="noindex">
 <title>Обедно меню · Чичовци</title>
 <meta name="description" content="Днешното обедно меню на ресторант Чичовци, Пловдив. Обяд от 11:30, понеделник – петък.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Alegreya+Sans:wght@400;500;700&display=swap&subset=cyrillic" rel="stylesheet">
 <style>
+  /* Чичовци – обедно меню. Посока: модерна механа край реката.
+     Тъмнозелено (бор / река), ленено бяло, шевица в червено и черно, месинг за детайли. */
   :root{
-    --bg:#faf7f2; --card:#ffffff; --ink:#2b2622; --muted:#7a7068; --line:#e8e1d7;
-    --accent:#8a5a2b; --accent-ink:#ffffff; --soft:#f3ece2; --warn:#a15c00;
+    --linen:#F8F6F1; --paper:#FFFFFF; --ink:#1D1B19; --muted:#6B655D; --line:#E2DCD1;
+    --pine:#23413A; --pine-ink:#F3EFE6; --shevitsa:#A8261D; --brass:#A57B2C; --soft:#EFEAE0;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#1b1917; --card:#24211e; --ink:#f1ebe3; --muted:#b3a89c; --line:#3a352f;
-      --accent:#c98d4f; --accent-ink:#1b1917; --soft:#2d2925; --warn:#e0a24a; }
+    :root{ --linen:#161514; --paper:#1E1C1A; --ink:#EEE8DE; --muted:#A79F94; --line:#34302B;
+      --pine:#1B332D; --pine-ink:#F3EFE6; --shevitsa:#D1493D; --brass:#D2A653; --soft:#262320; }
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);
-    font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-  .wrap{max-width:640px;margin:0 auto;padding:20px 16px 40px}
-  header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
-  .brand{font-weight:800;letter-spacing:.08em;font-size:1.35rem}
-  .sub{color:var(--muted);font-size:.92rem}
-  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
-  .lang button{border:0;background:transparent;color:var(--ink);padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
-  .lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-  h1{font-size:1.5rem;margin:18px 0 2px}
-  .date{color:var(--muted);margin-bottom:14px}
-  .preview{background:var(--soft);border:1px dashed var(--warn);color:var(--warn);
-    padding:8px 12px;border-radius:10px;font-size:.9rem;margin:10px 0}
-  .preview a{color:inherit;font-weight:700;white-space:nowrap}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 16px 10px;margin:12px 0}
-  .cat{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:var(--accent);margin:12px 0 2px}
+  html,body{margin:0;background:var(--linen);color:var(--ink);
+    font:17px/1.5 "Alegreya Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:4px}
+
+  /* ---- Горна част ---- */
+  .hero{background:var(--pine);color:var(--pine-ink);text-align:center;position:relative;
+    padding:14px 16px 16px}
+  .lang{position:absolute;top:14px;right:14px;display:flex;border:1px solid rgba(243,239,230,.35);
+    border-radius:999px;overflow:hidden}
+  .lang button{border:0;background:transparent;color:var(--pine-ink);padding:5px 11px;font:inherit;
+    font-size:.85rem;font-weight:700;cursor:pointer;min-width:40px;min-height:32px}
+  .lang button[aria-pressed="true"]{background:var(--pine-ink);color:var(--pine)}
+  .brand{font-family:"Marck Script",cursive;font-weight:400;font-size:clamp(2.5rem,12vw,3.4rem);
+    line-height:1;margin:16px 0 2px;letter-spacing:.01em}
+  .title{font-size:1.05rem;font-weight:500;letter-spacing:.06em;margin:0;opacity:.92}
+  .addr{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:.92rem;
+    text-decoration:none;opacity:.85;border-bottom:1px solid rgba(243,239,230,.3);padding-bottom:1px}
+  .addr svg{width:14px;height:14px;flex:none}
+  .addr:hover{opacity:1}
+
+  /* ---- Съдържание ---- */
+  .wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+  .date{text-align:center;color:var(--muted);font-size:1rem;margin:2px 0 4px}
+
+  section.cat{margin-top:26px}
+  section.cat + section.cat{margin-top:22px;padding-top:22px;position:relative}
+  section.cat + section.cat::before{ /* разделител между категориите: линия с ромбче */
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--line)}
+  section.cat + section.cat::after{
+    content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-5px;
+    background:var(--shevitsa);transform:rotate(45deg);box-shadow:0 0 0 4px var(--linen)}
+  .cat h2{font-family:"Marck Script",cursive;font-weight:400;font-size:2rem;line-height:1.1;
+    color:var(--pine);margin:0 0 8px}
+  @media (prefers-color-scheme: dark){ .cat h2{color:#9CC3B3} }
+
   ul{list-style:none;margin:0;padding:0}
-  li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
-  .cat + ul li:first-child{border-top:0}
-  .name{font-weight:600}
-  .note{display:block;font-weight:400;font-style:italic;color:var(--muted);font-size:.88rem}
-  .na{display:block;font-weight:400;color:var(--warn);font-size:.8rem}
-  .price{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
-  .msg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
-  .hours{color:var(--muted);font-size:.92rem;margin:4px 0 0}
-  .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-  .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px;
-    border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);
-    text-decoration:none;font-weight:600;text-align:center}
-  .btn.primary{grid-column:1/-1;background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-size:1.05rem}
+  li{padding:7px 0}
+  .row{display:flex;align-items:baseline;gap:8px}
+  .name{font-weight:500;font-size:1.06rem}
+  .lead{flex:1;min-width:16px;border-bottom:2px dotted var(--line);transform:translateY(-4px)}
+  .price{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+  .note{display:block;font-style:italic;color:var(--muted);font-size:.93rem;line-height:1.35;margin-top:1px}
+  .na{display:block;color:var(--shevitsa);font-size:.85rem;margin-top:1px}
+
+  .msg{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0 0}
+  .hours{color:var(--muted);font-size:.95rem;margin:22px 0 0;text-align:center}
+  .msg .hours{margin-top:8px;text-align:left}
+
+  /* ---- Бутони ---- */
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px;
+    border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+    text-decoration:none;font-weight:700;text-align:center}
+  .btn.primary{grid-column:1/-1;background:var(--pine);border-color:var(--pine);color:var(--pine-ink);font-size:1.08rem}
   .btn[hidden]{display:none}
-  footer{color:var(--muted);font-size:.8rem;margin-top:22px;text-align:center}
-  .skeleton{color:var(--muted);padding:18px 0}
+  footer{color:var(--muted);font-size:.85rem;margin-top:26px;text-align:center}
+  .skeleton{color:var(--muted);padding:18px 0;text-align:center}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="brand" data-t="brand"></div>
-      <div class="sub" data-t="place"></div>
-    </div>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="bg">BG</button>
-      <button type="button" data-lang="en">EN</button>
-    </div>
-  </header>
+<header class="hero">
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="bg">BG</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+  <div class="brand" data-t="brand"></div>
+  <h1 class="title" data-t="title"></h1>
+  <a class="addr" id="addr" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2&amp;query_place_id=ChIJj45PDpbRrBQRhvUfZPUjuBg" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+    <span data-t="place"></span>
+  </a>
+</header>
 
-  <h1 data-t="title"></h1>
+<div class="wrap">
   <div class="date" id="date"></div>
-  <div id="preview" class="preview" hidden></div>
 
   <main id="menu"><div class="skeleton" data-t="loading"></div></main>
 
@@ -76,8 +106,7 @@
     <a class="btn" id="b-tg" href="https://t.me/restaurant_chichovci" target="_blank" rel="noopener"></a>
     <a class="btn" id="b-fb" hidden target="_blank" rel="noopener"></a>
     <a class="btn" id="b-menu" href="https://chichovci.github.io/chichovtsi-menu/"></a>
-    <a class="btn" id="b-map" target="_blank" rel="noopener"
-       href="https://www.google.com/maps/search/?api=1&query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2"></a>
+    <a class="btn" id="b-map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2&amp;query_place_id=ChIJj45PDpbRrBQRhvUfZPUjuBg"></a>
   </nav>
 
   <footer data-t="footer"></footer>
@@ -94,42 +123,42 @@
     facebook: ""   // адрес на Facebook страницата – очаква се от Тома
   };
   const CATS = [
-    { key: "salads",   bg: "САЛАТИ",   en: "SALADS" },
-    { key: "soups",    bg: "СУПИ",     en: "SOUPS" },
-    { key: "mains",    bg: "ОСНОВНИ",  en: "MAINS" },
-    { key: "desserts", bg: "ДЕСЕРТИ",  en: "DESSERTS" }
+    { key: "salads",   bg: "Салати",   en: "Salads" },
+    { key: "soups",    bg: "Супи",     en: "Soups" },
+    { key: "mains",    bg: "Основни",  en: "Mains" },
+    { key: "desserts", bg: "Десерти",  en: "Desserts" }
   ];
 
   const T = {
     bg: {
-      place: "Пловдив · край Марица", title: "Обедно меню", loading: "Зареждане…",
-      call: "📞 Обади се · 089 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
+      place: "бул. „Марица“ 90, Пловдив", title: "Обедно меню", loading: "Зареждане…",
+      call: "📞 Обади се: 089 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
       menu: "Цялото меню", map: "Как да стигнете",
-      hours: "Обяд от 11:30 · понеделник – петък",
-      brand: "ЧИЧОВЦИ",
+      hours: "Обяд от 11:30, понеделник – петък",
+      brand: "Чичовци",
       notYet: "Днешното обедно меню ще бъде публикувано до 11:00.",
       notPosted: "Днешното меню още не е публикувано тук. Обадете ни се – с радост ще ви кажем какво има днес.",
       weekend: "Днес няма обедно меню. Обедно меню има от понеделник до петък.",
       error: "Менюто не може да се зареди в момента. Обадете ни се – с радост ще ви кажем какво има днес.",
       preview: "Преглед на меню за друга дата – това НЕ е днешното меню.",
-      toToday: "Към днешното меню →",
-      footer: "Ресторант Чичовци · Пловдив",
+      toToday: "Към днешното меню",
+      footer: "Ресторант Чичовци, бул. „Марица“ 90, Пловдив",
       na: "",
       weekdays: ["неделя","понеделник","вторник","сряда","четвъртък","петък","събота"]
     },
     en: {
-      place: "Plovdiv · by the Maritsa river", title: "Lunch menu", loading: "Loading…",
-      call: "📞 Call us · +359 89 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
+      place: "90 Maritsa Blvd, Plovdiv", title: "Lunch menu", loading: "Loading…",
+      call: "📞 Call us: +359 89 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
       menu: "Full menu", map: "Directions",
-      hours: "Lunch from 11:30 · Monday – Friday",
-      brand: "CHICHOVCI",
+      hours: "Lunch from 11:30, Monday to Friday",
+      brand: "Chichovci",
       notYet: "Today's lunch menu will be posted by 11:00.",
       notPosted: "Today's menu isn't posted here yet. Give us a call – we'll gladly tell you what's on today.",
       weekend: "No lunch menu today. Lunch menu is served Monday to Friday.",
       error: "The menu can't be loaded right now. Give us a call – we'll gladly tell you what's on today.",
       preview: "Preview of a menu for another date – this is NOT today's menu.",
-      toToday: "Go to today's menu →",
-      footer: "Chichovci Restaurant · Plovdiv",
+      toToday: "Go to today's menu",
+      footer: "Chichovci Restaurant, 90 Maritsa Blvd, Plovdiv",
       na: "Translation not yet available",
       weekdays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     }
@@ -184,9 +213,6 @@
     document.getElementById("date").textContent = d
       ? `${t.weekdays[d.getUTCDay()]}, ${wanted.slice(0, 5)}.20${wanted.slice(6)}` : wanted;
 
-    const pv = document.getElementById("preview");
-    pv.hidden = !isPreview;
-    pv.innerHTML = `${esc(t.preview)} <a href="${location.pathname}?lang=${lang}">${esc(t.toToday)}</a>`;
 
     const set = (id, text, href) => { const a = document.getElementById(id); a.textContent = text; if (href !== undefined) { a.hidden = !href; if (href) a.href = href; } };
     set("b-call", t.call); set("b-tg", t.tg); set("b-menu", t.menu); set("b-map", t.map);
@@ -207,7 +233,7 @@
     for (const c of CATS) {
       const list = Array.isArray(day.items[c.key]) ? day.items[c.key].filter(x => x && String(x.bg || "").trim()) : [];
       if (!list.length) continue;
-      html += `<div class="cat">${esc(c[lang])}</div><ul>`;
+      html += `<section class="cat"><h2>${esc(c[lang])}</h2><ul>`;
       for (const it of list) {
         const bg = String(it.bg).trim();
         const tr = dict.get(norm(bg));
@@ -215,11 +241,12 @@
         if (lang === "bg") name = bg;
         else if (tr && tr.en) { name = tr.en; if (tr.note) extra = `<span class="note">${esc(tr.note)}</span>`; }
         else { name = bg; extra = `<span class="na">${esc(t.na)}</span>`; }
-        html += `<li><span class="name">${esc(name)}${extra}</span><span class="price">${esc(fmtPrice(it.price, lang))}</span></li>`;
+        const pr = fmtPrice(it.price, lang);
+        html += `<li><div class="row"><span class="name">${esc(name)}</span>${pr ? `<span class="lead"></span><span class="price">${esc(pr)}</span>` : ""}</div>${extra}</li>`;
       }
-      html += `</ul>`;
+      html += `</ul></section>`;
     }
-    box.innerHTML = `<div class="card">${html}</div><p class="hours">${esc(t.hours)}</p>`;
+    box.innerHTML = `${html}<p class="hours">${esc(t.hours)}</p>`;
   }
 
   document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
