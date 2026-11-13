@@ -28,28 +28,23 @@
 
   /* ---- Горна част ---- */
   .hero{background:var(--pine);color:var(--pine-ink);text-align:center;position:relative;
-    padding:22px 16px 26px}
+    padding:14px 16px 16px}
   .lang{position:absolute;top:14px;right:14px;display:flex;border:1px solid rgba(243,239,230,.35);
     border-radius:999px;overflow:hidden}
   .lang button{border:0;background:transparent;color:var(--pine-ink);padding:5px 11px;font:inherit;
     font-size:.85rem;font-weight:700;cursor:pointer;min-width:40px;min-height:32px}
   .lang button[aria-pressed="true"]{background:var(--pine-ink);color:var(--pine)}
-  .brand{font-family:"Marck Script",cursive;font-weight:400;font-size:clamp(3rem,15vw,4.2rem);
-    line-height:1;margin:26px 0 4px;letter-spacing:.01em}
-  .title{font-size:1.15rem;font-weight:500;letter-spacing:.06em;margin:0;opacity:.92}
-  .addr{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:.95rem;
+  .brand{font-family:"Marck Script",cursive;font-weight:400;font-size:clamp(2.5rem,12vw,3.4rem);
+    line-height:1;margin:16px 0 2px;letter-spacing:.01em}
+  .title{font-size:1.05rem;font-weight:500;letter-spacing:.06em;margin:0;opacity:.92}
+  .addr{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:.92rem;
     text-decoration:none;opacity:.85;border-bottom:1px solid rgba(243,239,230,.3);padding-bottom:1px}
   .addr svg{width:14px;height:14px;flex:none}
   .addr:hover{opacity:1}
-  .shevitsa{height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16'%3E%3Crect width='32' height='16' fill='%23F8F6F1'/%3E%3Cpath d='M16 1 L23 8 L16 15 L9 8 Z' fill='%23A8261D'/%3E%3Cpath d='M16 5 L19 8 L16 11 L13 8 Z' fill='%23F8F6F1'/%3E%3Cpath d='M16 6.8 L17.2 8 L16 9.2 L14.8 8 Z' fill='%231D1B19'/%3E%3Cpath d='M0 4 L4 8 L0 12 Z M32 4 L28 8 L32 12 Z' fill='%231D1B19'/%3E%3Cpath d='M4 8 h4 M24 8 h4' stroke='%231D1B19' stroke-width='1'/%3E%3C/svg%3E") repeat-x center/32px 16px;
-    border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
 
   /* ---- Съдържание ---- */
   .wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
-  .date{text-align:center;color:var(--muted);font-size:1rem;margin:4px 0 6px}
-  .preview{background:var(--soft);border:1px dashed var(--brass);color:var(--ink);
-    padding:9px 12px;border-radius:8px;font-size:.92rem;margin:10px 0}
-  .preview a{font-weight:700;white-space:nowrap}
+  .date{text-align:center;color:var(--muted);font-size:1rem;margin:2px 0 4px}
 
   section.cat{margin-top:26px}
   section.cat + section.cat{margin-top:22px;padding-top:22px;position:relative}
@@ -99,11 +94,9 @@
     <span data-t="place"></span>
   </a>
 </header>
-<div class="shevitsa" aria-hidden="true"></div>
 
 <div class="wrap">
   <div class="date" id="date"></div>
-  <div id="preview" class="preview" hidden></div>
 
   <main id="menu"><div class="skeleton" data-t="loading"></div></main>
 
@@ -220,9 +213,6 @@
     document.getElementById("date").textContent = d
       ? `${t.weekdays[d.getUTCDay()]}, ${wanted.slice(0, 5)}.20${wanted.slice(6)}` : wanted;
 
-    const pv = document.getElementById("preview");
-    pv.hidden = !isPreview;
-    pv.innerHTML = `${esc(t.preview)} <a href="${location.pathname}?lang=${lang}">${esc(t.toToday)}</a>`;
 
     const set = (id, text, href) => { const a = document.getElementById(id); a.textContent = text; if (href !== undefined) { a.hidden = !href; if (href) a.href = href; } };
     set("b-call", t.call); set("b-tg", t.tg); set("b-menu", t.menu); set("b-map", t.map);
