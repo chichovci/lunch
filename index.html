@@ -167,6 +167,17 @@
   // ---- Помощни ----
   const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  // Ястие без превод: официална транслитерация на латиница (не превод), напр. „Млечна салата“ → „Mlechna salata“
+  const TR = {а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ж:"zh",з:"z",и:"i",й:"y",к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",х:"h",ц:"ts",ч:"ch",ш:"sh",щ:"sht",ъ:"a",ь:"y",ю:"yu",я:"ya"};
+  const isUp = c => !!c && c !== c.toLowerCase();
+  const translit = s => String(s)
+    .replace(/(и)(я)(?![а-я])/gi, (m, i, ya) => (i === "И" ? "I" : "i") + (ya === "Я" ? "A" : "a"))
+    .replace(/[а-я]/gi, (ch, at, str) => {
+      const low = ch.toLowerCase(), r = TR[low];
+      if (r === undefined) return ch;
+      if (ch === low) return r;
+      return (isUp(str[at + 1]) || isUp(str[at - 1])) ? r.toUpperCase() : r.charAt(0).toUpperCase() + r.slice(1);
+    });
   const params = new URLSearchParams(location.search);
 
   function sofiaToday() {
@@ -240,7 +251,7 @@
         let name, extra = "";
         if (lang === "bg") name = bg;
         else if (tr && tr.en) { name = tr.en; if (tr.note) extra = `<span class="note">${esc(tr.note)}</span>`; }
-        else { name = bg; extra = `<span class="na">${esc(t.na)}</span>`; }
+        else { name = translit(bg); }
         const pr = fmtPrice(it.price, lang);
         html += `<li><div class="row"><span class="name">${esc(name)}</span>${pr ? `<span class="lead"></span><span class="price">${esc(pr)}</span>` : ""}</div>${extra}</li>`;
       }
