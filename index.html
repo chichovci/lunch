@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Обедно меню · Чичовци</title>
+<meta name="description" content="Днешното обедно меню на ресторант Чичовци, Пловдив. Обяд от 11:30, понеделник – петък.">
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2b2622; --muted:#7a7068; --line:#e8e1d7;
+    --accent:#8a5a2b; --accent-ink:#ffffff; --soft:#f3ece2; --warn:#a15c00;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1b1917; --card:#24211e; --ink:#f1ebe3; --muted:#b3a89c; --line:#3a352f;
+      --accent:#c98d4f; --accent-ink:#1b1917; --soft:#2d2925; --warn:#e0a24a; }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .brand{font-weight:800;letter-spacing:.08em;font-size:1.35rem}
+  .sub{color:var(--muted);font-size:.92rem}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+  .lang button{border:0;background:transparent;color:var(--ink);padding:6px 12px;font:inherit;font-weight:600;cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+  h1{font-size:1.5rem;margin:18px 0 2px}
+  .date{color:var(--muted);margin-bottom:14px}
+  .preview{background:var(--soft);border:1px dashed var(--warn);color:var(--warn);
+    padding:8px 12px;border-radius:10px;font-size:.9rem;margin:10px 0}
+  .preview a{color:inherit;font-weight:700;white-space:nowrap}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 16px 10px;margin:12px 0}
+  .cat{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:var(--accent);margin:12px 0 2px}
+  ul{list-style:none;margin:0;padding:0}
+  li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+  .cat + ul li:first-child{border-top:0}
+  .name{font-weight:600}
+  .note{display:block;font-weight:400;font-style:italic;color:var(--muted);font-size:.88rem}
+  .na{display:block;font-weight:400;color:var(--warn);font-size:.8rem}
+  .price{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+  .msg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+  .hours{color:var(--muted);font-size:.92rem;margin:4px 0 0}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px;
+    border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);
+    text-decoration:none;font-weight:600;text-align:center}
+  .btn.primary{grid-column:1/-1;background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-size:1.05rem}
+  .btn[hidden]{display:none}
+  footer{color:var(--muted);font-size:.8rem;margin-top:22px;text-align:center}
+  .skeleton{color:var(--muted);padding:18px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand" data-t="brand"></div>
+      <div class="sub" data-t="place"></div>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="bg">BG</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <h1 data-t="title"></h1>
+  <div class="date" id="date"></div>
+  <div id="preview" class="preview" hidden></div>
+
+  <main id="menu"><div class="skeleton" data-t="loading"></div></main>
+
+  <nav class="btns" aria-label="Contacts">
+    <a class="btn primary" id="b-call" href="tel:+359895111277"></a>
+    <a class="btn" id="b-viber" hidden></a>
+    <a class="btn" id="b-tg" href="https://t.me/restaurant_chichovci" target="_blank" rel="noopener"></a>
+    <a class="btn" id="b-fb" hidden target="_blank" rel="noopener"></a>
+    <a class="btn" id="b-menu" href="https://chichovci.github.io/chichovtsi-menu/"></a>
+    <a class="btn" id="b-map" target="_blank" rel="noopener"
+       href="https://www.google.com/maps/search/?api=1&query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2"></a>
+  </nav>
+
+  <footer data-t="footer"></footer>
+</div>
+
+<script>
+(() => {
+  // ---- Настройки ----
+  const SHEET_ID = "1ZQqI3emCG4cQqx6R9NZqc3CdZStpjFK8k7vZ7vUoa4I";
+  const DAY_SHEET = "Обяд_страница";
+  const DICT_SHEET = "Речник";
+  const LINKS = {
+    viber: "",     // връзка за присъединяване към Viber общността – очаква се от Тома
+    facebook: ""   // адрес на Facebook страницата – очаква се от Тома
+  };
+  const CATS = [
+    { key: "salads",   bg: "САЛАТИ",   en: "SALADS" },
+    { key: "soups",    bg: "СУПИ",     en: "SOUPS" },
+    { key: "mains",    bg: "ОСНОВНИ",  en: "MAINS" },
+    { key: "desserts", bg: "ДЕСЕРТИ",  en: "DESSERTS" }
+  ];
+
+  const T = {
+    bg: {
+      place: "Пловдив · край Марица", title: "Обедно меню", loading: "Зареждане…",
+      call: "📞 Обади се · 089 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
+      menu: "Цялото меню", map: "Как да стигнете",
+      hours: "Обяд от 11:30 · понеделник – петък",
+      brand: "ЧИЧОВЦИ",
+      notYet: "Днешното обедно меню ще бъде публикувано до 11:00.",
+      notPosted: "Днешното меню още не е публикувано тук. Обадете ни се – с радост ще ви кажем какво има днес.",
+      weekend: "Днес няма обедно меню. Обедно меню има от понеделник до петък.",
+      error: "Менюто не може да се зареди в момента. Обадете ни се – с радост ще ви кажем какво има днес.",
+      preview: "Преглед на меню за друга дата – това НЕ е днешното меню.",
+      toToday: "Към днешното меню →",
+      footer: "Ресторант Чичовци · Пловдив",
+      na: "",
+      weekdays: ["неделя","понеделник","вторник","сряда","четвъртък","петък","събота"]
+    },
+    en: {
+      place: "Plovdiv · by the Maritsa river", title: "Lunch menu", loading: "Loading…",
+      call: "📞 Call us · +359 89 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
+      menu: "Full menu", map: "Directions",
+      hours: "Lunch from 11:30 · Monday – Friday",
+      brand: "CHICHOVCI",
+      notYet: "Today's lunch menu will be posted by 11:00.",
+      notPosted: "Today's menu isn't posted here yet. Give us a call – we'll gladly tell you what's on today.",
+      weekend: "No lunch menu today. Lunch menu is served Monday to Friday.",
+      error: "The menu can't be loaded right now. Give us a call – we'll gladly tell you what's on today.",
+      preview: "Preview of a menu for another date – this is NOT today's menu.",
+      toToday: "Go to today's menu →",
+      footer: "Chichovci Restaurant · Plovdiv",
+      na: "Translation not yet available",
+      weekdays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    }
+  };
+
+  // ---- Помощни ----
+  const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const params = new URLSearchParams(location.search);
+
+  function sofiaToday() {
+    const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", day: "2-digit", month: "2-digit", year: "2-digit" })
+      .formatToParts(new Date()).reduce((o, x) => (o[x.type] = x.value, o), {});
+    return `${p.day}.${p.month}.${p.year}`;
+  }
+  function parseDate(s) {
+    const m = /^(\d{2})\.(\d{2})\.(\d{2})$/.exec(s || "");
+    return m ? new Date(Date.UTC(2000 + +m[3], +m[2] - 1, +m[1], 12)) : null;
+  }
+  function fmtPrice(p, lang) {
+    if (!/^\d{1,3}\.\d{2}$/.test(p || "")) return "";
+    return lang === "bg" ? `${p.replace(".", ",")} €` : `€${p}`;
+  }
+
+  async function gviz(sheet, range) {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0` +
+      `&sheet=${encodeURIComponent(sheet)}&range=${range}&t=${Date.now()}`;
+    const txt = await (await fetch(url, { cache: "no-store" })).text();
+    const json = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+    return (json.table.rows || []).map(r => (r.c || []).map(c => (c && c.v != null ? String(c.v) : "")));
+  }
+
+  // ---- Състояние ----
+  const today = sofiaToday();
+  const wanted = /^\d{2}\.\d{2}\.\d{2}$/.test(params.get("date") || "") ? params.get("date") : today;
+  const isPreview = wanted !== today;
+  let lang = params.get("lang") === "en" ? "en" : params.get("lang") === "bg" ? "bg"
+           : ((navigator.language || "").toLowerCase().startsWith("bg") ? "bg" : "en");
+  let day = null;          // { items }
+  let dict = new Map();    // ключ → { en, note }
+  let state = "loading";   // loading | ok | none | error
+
+  // ---- Изобразяване ----
+  function render() {
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    document.title = lang === "bg" ? "Обедно меню · Чичовци" : "Lunch menu · Chichovci";
+    document.querySelectorAll("[data-t]").forEach(el => el.textContent = t[el.dataset.t]);
+    document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+
+    const d = parseDate(wanted);
+    document.getElementById("date").textContent = d
+      ? `${t.weekdays[d.getUTCDay()]}, ${wanted.slice(0, 5)}.20${wanted.slice(6)}` : wanted;
+
+    const pv = document.getElementById("preview");
+    pv.hidden = !isPreview;
+    pv.innerHTML = `${esc(t.preview)} <a href="${location.pathname}?lang=${lang}">${esc(t.toToday)}</a>`;
+
+    const set = (id, text, href) => { const a = document.getElementById(id); a.textContent = text; if (href !== undefined) { a.hidden = !href; if (href) a.href = href; } };
+    set("b-call", t.call); set("b-tg", t.tg); set("b-menu", t.menu); set("b-map", t.map);
+    set("b-viber", t.viber, LINKS.viber); set("b-fb", t.fb, LINKS.facebook);
+
+    const box = document.getElementById("menu");
+    if (state === "loading") { box.innerHTML = `<div class="skeleton">${esc(t.loading)}</div>`; return; }
+    if (state === "error")   { box.innerHTML = `<div class="msg">${esc(t.error)}<p class="hours">${esc(t.hours)}</p></div>`; return; }
+    if (state === "none") {
+      const wd = d ? d.getUTCDay() : 1;
+      const hour = +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", hour: "2-digit", hourCycle: "h23" }).format(new Date());
+      const m = (wd === 0 || wd === 6) ? t.weekend : (!isPreview && hour < 11 ? t.notYet : t.notPosted);
+      box.innerHTML = `<div class="msg">${esc(m)}<p class="hours">${esc(t.hours)}</p></div>`;
+      return;
+    }
+
+    let html = "";
+    for (const c of CATS) {
+      const list = Array.isArray(day.items[c.key]) ? day.items[c.key].filter(x => x && String(x.bg || "").trim()) : [];
+      if (!list.length) continue;
+      html += `<div class="cat">${esc(c[lang])}</div><ul>`;
+      for (const it of list) {
+        const bg = String(it.bg).trim();
+        const tr = dict.get(norm(bg));
+        let name, extra = "";
+        if (lang === "bg") name = bg;
+        else if (tr && tr.en) { name = tr.en; if (tr.note) extra = `<span class="note">${esc(tr.note)}</span>`; }
+        else { name = bg; extra = `<span class="na">${esc(t.na)}</span>`; }
+        html += `<li><span class="name">${esc(name)}${extra}</span><span class="price">${esc(fmtPrice(it.price, lang))}</span></li>`;
+      }
+      html += `</ul>`;
+    }
+    box.innerHTML = `<div class="card">${html}</div><p class="hours">${esc(t.hours)}</p>`;
+  }
+
+  document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+    lang = b.dataset.lang;
+    const p = new URLSearchParams(location.search); p.set("lang", lang);
+    history.replaceState(null, "", `${location.pathname}?${p}`);
+    render();
+  }));
+
+  // ---- Зареждане ----
+  render();
+  Promise.all([
+    gviz(DAY_SHEET, "A2:C"),
+    gviz(DICT_SHEET, "B2:H").catch(() => [])     // речникът е по желание: без него EN показва BG + бележка
+  ]).then(([days, dictRows]) => {
+    // Речник: първият ред за всеки ключ печели
+    for (const r of dictRows) {
+      const key = norm(r[6] || r[0]);              // H = BG_key, иначе B
+      if (key && r[1] && !dict.has(key)) dict.set(key, { en: r[1].trim(), note: (r[5] || "").trim() });
+    }
+    // Ден: при повече редове за една дата – най-новото „Обновено“, при равенство последният ред
+    let best = null, bestC = "";
+    days.forEach(r => {
+      if ((r[0] || "").trim() !== wanted) return;
+      const c = r[2] || "";
+      if (!best || c >= bestC) { best = r; bestC = c; }
+    });
+    if (best) {
+      try { day = { items: JSON.parse(best[1]) || {} }; state = "ok"; }
+      catch (e) { state = "error"; }
+      if (state === "ok" && !CATS.some(c => Array.isArray(day.items[c.key]) && day.items[c.key].length)) state = "none";
+    } else state = "none";
+    render();
+  }).catch(() => { state = "error"; render(); });
+})();
+</script>
+</body>
+</html>
