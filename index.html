@@ -71,11 +71,21 @@
   .msg .hours{margin-top:8px;text-align:left}
 
   /* ---- Бутони ---- */
-  .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-  .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px;
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .btn{display:flex;align-items:center;gap:10px;min-height:46px;padding:7px 10px;
     border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);
-    text-decoration:none;font-weight:700;text-align:center}
-  .btn.primary{grid-column:1/-1;background:var(--pine);border-color:var(--pine);color:var(--pine-ink);font-size:1.08rem}
+    text-decoration:none;text-align:left;line-height:1.15}
+  .btn .ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+    background:var(--c,var(--pine));color:#fff}
+  .btn .ic svg{width:17px;height:17px}
+  .btn .tx{display:flex;flex-direction:column;min-width:0}
+  .btn .tx b{font-weight:700;font-size:.98rem}
+  .btn .tx small{font-size:.8rem;color:var(--muted)}
+  .btn:hover{border-color:var(--c,var(--pine))}
+  .btn.primary{grid-column:1/-1;justify-content:center;min-height:50px;background:var(--pine);
+    border-color:var(--pine);color:var(--pine-ink);font-size:1.08rem;font-weight:700}
+  .btn.primary .ic{background:rgba(243,239,230,.18)}
+  #b-viber{--c:#7360F2} #b-tg{--c:#229ED9} #b-fb{--c:#1877F2} #b-menu{--c:#A57B2C} #b-map{--c:#A8261D}
   .btn[hidden]{display:none}
   .btn.wide{grid-column:1/-1}
   footer{color:var(--muted);font-size:.85rem;margin-top:22px;text-align:center}
@@ -98,12 +108,12 @@
   <main id="menu"><div class="skeleton" data-t="loading"></div></main>
 
   <nav class="btns" aria-label="Contacts">
-    <a class="btn primary" id="b-call" href="tel:+359895111277"></a>
-    <a class="btn" id="b-viber" hidden target="_blank" rel="noopener"></a>
-    <a class="btn" id="b-tg" href="https://t.me/restaurant_chichovci" target="_blank" rel="noopener"></a>
-    <a class="btn" id="b-fb" hidden target="_blank" rel="noopener"></a>
-    <a class="btn" id="b-menu" href="https://chichovci.github.io/chichovtsi-menu/index-view.html"></a>
-    <a class="btn wide" id="b-map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2&amp;query_place_id=ChIJj45PDpbRrBQRhvUfZPUjuBg"></a>
+    <a class="btn primary" id="b-call" href="tel:+359895111277"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></span><span class="tx"><b></b></span></a>
+    <a class="btn" id="b-viber" hidden target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 3 6.2 3 10.6c0 2.5 1.2 4.5 3.2 5.8V21l3.6-2.6c.7.1 1.4.2 2.2.2 5.5 0 9-3.2 9-7.9S17.5 3 12 3zm3.8 10.2-.9.9c-.4.4-1.2.3-2.3-.3a9 9 0 0 1-3.4-3.4c-.6-1.1-.7-1.9-.3-2.3l.9-.9.5.1 1 1.6-.1.5-.5.5c.2.6 1.2 1.6 1.8 1.8l.5-.5.5-.1 1.6 1-.1.5z"/></svg></span><span class="tx"><b></b><small></small></span></a>
+    <a class="btn" id="b-tg" href="https://t.me/restaurant_chichovci" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 3.6 2.9 10.8c-.9.4-.9 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.8 3.6c.7.5 1.7.1 1.9-.7l3.1-15.7c.2-1-.8-1.7-1.7-1.3zM9.6 14.2l8.6-7.7-6.9 9.1-.3 3-1.4-4.4z"/></svg></span><span class="tx"><b></b><small></small></span></a>
+    <a class="btn" id="b-fb" hidden target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V10.5H7.8v3h2.6V21z"/></svg></span><span class="tx"><b></b><small></small></span></a>
+    <a class="btn" id="b-menu" href="https://chichovci.github.io/chichovtsi-menu/index-view.html"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 4h6a2 2 0 0 1 1 .3A2 2 0 0 1 13 4h6a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-5.5a1.5 1.5 0 0 0-1.5 1h-0a1.5 1.5 0 0 0-1.5-1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v11h5V6.5a.5.5 0 0 0-.5-.5zm7 .5V17h5V6h-4.5a.5.5 0 0 0-.5.5z"/></svg></span><span class="tx"><b></b><small></small></span></a>
+    <a class="btn wide" id="b-map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2&amp;query_place_id=ChIJj45PDpbRrBQRhvUfZPUjuBg"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span><span class="tx"><b></b><small></small></span></a>
   </nav>
 
   <footer><a class="addr" id="addr" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%82%20%D0%A7%D0%B8%D1%87%D0%BE%D0%B2%D1%86%D0%B8%20%D0%9F%D0%BB%D0%BE%D0%B2%D0%B4%D0%B8%D0%B2&amp;query_place_id=ChIJj45PDpbRrBQRhvUfZPUjuBg" target="_blank" rel="noopener">
@@ -132,8 +142,8 @@
   const T = {
     bg: {
       place: "бул. „Марица“ 90, Пловдив", title: "Обедно меню", loading: "Зареждане…",
-      call: "📞 Обади се: 089 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
-      menu: "Цялото меню", map: "Как да стигнете",
+      call: ["Обади ни се"], viber: ["Viber", "Обедното меню всеки делничен ден"], tg: ["Telegram", "Обедното меню всеки делничен ден"], fb: ["Facebook", "Новини и снимки"],
+      menu: ["Цялото меню", "Всички ястия"], map: ["Как да стигнете", "Google Maps"],
       hours: "Обяд от 11:30, понеделник – петък",
       brand: "Чичовци",
       notYet: "Днешното обедно меню ще бъде публикувано до 11:00.",
@@ -148,8 +158,8 @@
     },
     en: {
       place: "90 Maritsa Blvd, Plovdiv", title: "Lunch menu", loading: "Loading…",
-      call: "📞 Call us: +359 89 511 1277", viber: "Viber", tg: "Telegram", fb: "Facebook",
-      menu: "Full menu", map: "Directions",
+      call: ["Call us"], viber: ["Viber", "Weekday lunch menu"], tg: ["Telegram", "Weekday lunch menu"], fb: ["Facebook", "News & photos"],
+      menu: ["Full menu", "All dishes"], map: ["Directions", "Google Maps"],
       hours: "Lunch from 11:30, Monday to Friday",
       brand: "Chichovci",
       notYet: "Today's lunch menu will be posted by 11:00.",
@@ -225,7 +235,7 @@
       ? `${t.weekdays[d.getUTCDay()]}, ${wanted.slice(0, 5)}.20${wanted.slice(6)}` : wanted;
 
 
-    const set = (id, text, href) => { const a = document.getElementById(id); a.textContent = text; if (href !== undefined) { a.hidden = !href; if (href) a.href = href; } };
+    const set = (id, text, href) => { const a = document.getElementById(id); a.querySelector(".tx b").textContent = text[0]; const sm = a.querySelector(".tx small"); if (sm) sm.textContent = text[1] || ""; a.setAttribute("aria-label", text.join(" – ")); if (href !== undefined) { a.hidden = !href; if (href) a.href = href; } };
     set("b-call", t.call); set("b-tg", t.tg); set("b-menu", t.menu); set("b-map", t.map);
     set("b-viber", t.viber, LINKS.viber); set("b-fb", t.fb, LINKS.facebook);
 
